@@ -1,15 +1,17 @@
 package ru.skypro.coursework.easyauction.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Lot {
     private int id;
-    private String status = "CREATED";
+    private String status = Status.CREATED.toString();
     private String title;
     private String description;
     private int startPrice;
@@ -22,6 +24,10 @@ public class Lot {
         this.bidPrice = bidPrice;
     }
 
+    public Lot(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Лот " +
@@ -32,4 +38,5 @@ public class Lot {
                 ", начальная цена: " + startPrice +
                 ", цена ставки: " + bidPrice;
     }
+
 }
