@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.skypro.coursework.easyauction.dto.BidderDTO;
 import ru.skypro.coursework.easyauction.dto.FullLotInfoDTO;
 import ru.skypro.coursework.easyauction.dto.LotDTO;
+import ru.skypro.coursework.easyauction.model.Status;
 import ru.skypro.coursework.easyauction.service.LotServiceImpl;
 
 import java.io.IOException;
@@ -49,8 +50,16 @@ public class LotController {
     }
 
     @PostMapping("/lot") // создание лота
-    public LotDTO createLot() {
-        return lotService.createLot();
+    public LotDTO createLot(@RequestParam("title") String title,
+                            @RequestParam("description") String description,
+                            @RequestParam("startPrice") int startPrice,
+                            @RequestParam("bidPrice") int bidPrise) {
+        return lotService.createLot(new LotDTO(
+                Status.CREATED.toString(),
+                title,
+                description,
+                startPrice,
+                bidPrise));
     }
 
     @GetMapping("/LotPages")

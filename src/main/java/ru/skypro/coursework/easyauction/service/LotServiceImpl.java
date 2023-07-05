@@ -41,7 +41,8 @@ public class LotServiceImpl implements LotService{
     }
 
     @Override
-    public LotDTO createLot() {
+    public LotDTO createLot(LotDTO lotDTO) {
+
         return null;
     }
 

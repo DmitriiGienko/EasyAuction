@@ -21,7 +21,7 @@ public interface LotService {
 
     void getStopBidding(int id);
 
-    LotDTO createLot();
+    LotDTO createLot(LotDTO lotDTO);
 
     List<LotDTO> getAllLotsByFilter(int page);
 
