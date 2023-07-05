@@ -13,7 +13,7 @@ public class MapperClass {
 
     public static LotDTO toLotDTO(Lot lot) {
         LotDTO lotDTO = new LotDTO();
-//        lotDTO.setId(lot.getId());
+        lotDTO.setId(lot.getId());
         lotDTO.setStatus(lot.getStatus());
         lotDTO.setTitle(lot.getTitle());
         lotDTO.setDescription(lot.getDescription());

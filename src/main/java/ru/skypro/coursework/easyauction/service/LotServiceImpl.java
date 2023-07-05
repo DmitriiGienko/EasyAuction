@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import ru.skypro.coursework.easyauction.dto.BidderDTO;
 import ru.skypro.coursework.easyauction.dto.FullLotInfoDTO;
 import ru.skypro.coursework.easyauction.dto.LotDTO;
+import ru.skypro.coursework.easyauction.exceptions.LotNotFoundException;
 import ru.skypro.coursework.easyauction.model.Lot;
+import ru.skypro.coursework.easyauction.model.Status;
 import ru.skypro.coursework.easyauction.progections.FullLotInfo;
 import ru.skypro.coursework.easyauction.repository.LotRepository;
 
@@ -13,9 +15,10 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class LotServiceImpl implements LotService{
+public class LotServiceImpl implements LotService {
 
     private final LotRepository lotRepository;
+
     @Override
     public BidderDTO getFirstBidderName(int id) {
         return null;
@@ -33,6 +36,9 @@ public class LotServiceImpl implements LotService{
 
     @Override
     public void getStartBidding(int id) {
+        Lot lot = lotRepository.findById(id).orElseThrow(LotNotFoundException::new);
+        lot.setStatus(Status.STARTED.toString());
+        lotRepository.save(lot);
 
     }
 
@@ -50,8 +56,7 @@ public class LotServiceImpl implements LotService{
     public LotDTO createLot(LotDTO lotDTO) {
         Lot lot = MapperClass.fromLotDTO(lotDTO);
         lotRepository.save(lot);
-
-        return null;
+        return MapperClass.toLotDTO(lotRepository.getLotByTitle(lotDTO.getTitle()));
     }
 
     @Override

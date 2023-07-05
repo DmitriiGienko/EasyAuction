@@ -4,4 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 import ru.skypro.coursework.easyauction.model.Lot;
 
 public interface LotRepository extends CrudRepository<Lot, Integer> {
+
+    Lot getLotByTitle(String title);
 }
