@@ -39,7 +39,6 @@ public class LotServiceImpl implements LotService {
         Lot lot = lotRepository.findById(id).orElseThrow(LotNotFoundException::new);
         lot.setStatus(Status.STARTED.toString());
         lotRepository.save(lot);
-
     }
 
     @Override
