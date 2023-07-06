@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,6 +24,8 @@ public class Lot {
     private int startPrice;
     @Column(name = "bid_price")
     private int bidPrice;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bidder_id")
 
     //   public Lot(String title, String description, int startPrice, int bidPrice) {
     //       this.title = title;

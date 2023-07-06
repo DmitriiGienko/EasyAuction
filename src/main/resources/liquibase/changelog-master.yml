@@ -2,5 +2,5 @@ databaseChangeLog:
   - include:
       file: liquibase/changesets/create_lot.yml
 
-#  - include:
-#      file: liquibase/changesets/create_bid.yml
+  - include:
+      file: liquibase/changesets/create_bid.yml
