@@ -20,4 +20,9 @@ public interface BidRepository extends JpaRepository<Bid, Integer> {
             " AND b.bidderDateTime = (SELECT MIN (b.bidderDateTime) from Bid b)")
     Optional<Bidder> findFirstBidder(@Param("id") int id);
 
+    @Query("SELECT new ru.skypro.coursework.easyauction.progections.Bidder" +
+            "(b.bidderName, b.bidderDateTime) FROM Bid b WHERE b.lot.id = :id" +
+            " AND b.bidderDateTime = (SELECT MAX () from Bid b)")
+    Optional<Bidder> findMaxBidder(@Param("id") int id);
+
 }
