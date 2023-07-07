@@ -17,7 +17,7 @@ public interface LotService {
 
     void getStartBidding(int id);
 
-    BidderDTO getBid(int id);
+    String createBid(int id, String bidderName);
 
     void getStopBidding(int id);
 

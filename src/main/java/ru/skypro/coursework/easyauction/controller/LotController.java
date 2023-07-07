@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.skypro.coursework.easyauction.dto.BidderDTO;
 import ru.skypro.coursework.easyauction.dto.FullLotInfoDTO;
 import ru.skypro.coursework.easyauction.dto.LotDTO;
+import ru.skypro.coursework.easyauction.dto.TestDTO;
+import ru.skypro.coursework.easyauction.model.Bid;
+import ru.skypro.coursework.easyauction.model.Lot;
 import ru.skypro.coursework.easyauction.model.Status;
 import ru.skypro.coursework.easyauction.service.LotServiceImpl;
 
@@ -39,8 +42,9 @@ public class LotController {
     }
 
     @PutMapping("/{id}/bid") // Сделать ставку по лоту
-    public BidderDTO getBid(@PathVariable int id) {
-        return lotService.getBid(id);
+    public String getBid(@PathVariable int id,
+                         @RequestParam("Bidder name") String bidderName) {
+        return lotService.createBid(id, bidderName);
     }
 
     @PutMapping("/{id}/stop") // Остановить торги по лоту
@@ -77,5 +81,10 @@ public class LotController {
         //  } catch (IOException e) {
         //      throw new RuntimeException(e);
         //  }
+    }
+
+    @GetMapping("/testLot")
+    public TestDTO getLot(@RequestParam int id) {
+        return lotService.getLot(id);
     }
 }

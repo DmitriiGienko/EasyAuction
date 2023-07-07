@@ -2,6 +2,7 @@ package ru.skypro.coursework.easyauction.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -10,4 +11,9 @@ import java.time.LocalDateTime;
 public class BidDTO {
     private String bidderName;
     private LocalDateTime bidderDateTime;
+    private LotDTO lotDTO;
+
+
+
+
 }

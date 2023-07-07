@@ -12,7 +12,14 @@ public class LotExceptionHandler {
     public ResponseEntity<?> handleNotFound(LotNotFoundException e) {
 //        logger.error("Id не найден!)");
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(HttpStatus.NOT_FOUND)
                 .body("Лот не найден!");
+    }
+
+    @ExceptionHandler(LotErrorStatusException.class)
+    public ResponseEntity<?> handleNotFound(LotErrorStatusException e) {
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body("Лот в неверном статусе");
     }
 }

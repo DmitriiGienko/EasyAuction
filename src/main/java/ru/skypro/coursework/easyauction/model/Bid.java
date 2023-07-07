@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "bid")
+
 public class Bid {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +23,21 @@ public class Bid {
     private String bidderName;
     @Column(name = "bidder_date_time")
     private LocalDateTime bidderDateTime;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lot_id")
+    private Lot lot;
+
+
+    public Bid(String bidderName, LocalDateTime bidderDateTime, Lot lot) {
+        this.bidderName = bidderName;
+        this.bidderDateTime = bidderDateTime;
+        this.lot = lot;
+
+    }
 
     public Bid(String bidderName, LocalDateTime bidderDateTime) {
         this.bidderName = bidderName;
         this.bidderDateTime = bidderDateTime;
-
     }
 
     @Override
@@ -36,14 +47,35 @@ public class Bid {
                 ", дата и время ставки: " + bidderDateTime;
     }
 
-    @ManyToOne(optional = false)
-    private Lot lots;
-
-    public Lot getLots() {
-        return lots;
+    public int getBidId() {
+        return bidId;
     }
 
-    public void setLots(Lot lots) {
-        this.lots = lots;
+    public void setBidId(int bidId) {
+        this.bidId = bidId;
+    }
+
+    public String getBidderName() {
+        return bidderName;
+    }
+
+    public void setBidderName(String bidderName) {
+        this.bidderName = bidderName;
+    }
+
+    public LocalDateTime getBidderDateTime() {
+        return bidderDateTime;
+    }
+
+    public void setBidderDateTime(LocalDateTime bidderDateTime) {
+        this.bidderDateTime = bidderDateTime;
+    }
+
+    public Lot getLot() {
+        return lot;
+    }
+
+    public void setLot(Lot lot) {
+        this.lot = lot;
     }
 }

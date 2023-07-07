@@ -4,3 +4,6 @@ databaseChangeLog:
 
   - include:
       file: liquibase/changesets/create_bid.yml
+
+  - include:
+      file: liquibase/changesets/create_foreign_key_for_bid.yml

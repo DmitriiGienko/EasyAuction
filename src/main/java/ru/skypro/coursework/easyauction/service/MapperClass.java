@@ -35,29 +35,31 @@ public class MapperClass {
 
     public static BidDTO toBidDTO(Bid bid) {
         return new BidDTO(bid.getBidderName(),
-                bid.getBidderDateTime());
+                bid.getBidderDateTime(),
+                toLotDTO(new Lot()));
     }
 
     public static Bid fromBidDTO(BidDTO bidDTO) {
         return new Bid(bidDTO.getBidderName(),
-                bidDTO.getBidderDateTime());
+                bidDTO.getBidderDateTime(),
+                MapperClass.fromLotDTO(bidDTO.getLotDTO()));
     }
 
-    public static FullLotInfoDTO toFullLotInfoDTO(FullLotInfo fullLotInfo) {
-        FullLotInfoDTO fullLotInfoDTO = new FullLotInfoDTO();
-        fullLotInfoDTO.setLot(fullLotInfo.getLot());
-        fullLotInfoDTO.setCurrentPrice(fullLotInfo.getCurrentPrice());
-        fullLotInfoDTO.setBidder(fullLotInfo.getBidder());
-        return fullLotInfoDTO;
-    }
+ //  public static FullLotInfoDTO toFullLotInfoDTO(FullLotInfo fullLotInfo) {
+ //      FullLotInfoDTO fullLotInfoDTO = new FullLotInfoDTO();
+ //      fullLotInfoDTO.setLot(fullLotInfo.getLot());
+ //      fullLotInfoDTO.setCurrentPrice(fullLotInfo.getCurrentPrice());
+ //      fullLotInfoDTO.setBidder(fullLotInfo.getBidder());
+ //      return fullLotInfoDTO;
+ //  }
 
-    public static FullLotInfo fromFullLotInfoDTO(FullLotInfoDTO fullLotInfoDTO) {
-        FullLotInfo fullLotInfo = new FullLotInfo();
-        fullLotInfo.setLot(fullLotInfoDTO.getLot());
-        fullLotInfo.setCurrentPrice(fullLotInfoDTO.getCurrentPrice());
-        fullLotInfo.setBidder(fullLotInfoDTO.getBidder());
-        return fullLotInfo;
-    }
+ //  public static FullLotInfo fromFullLotInfoDTO(FullLotInfoDTO fullLotInfoDTO) {
+ //      FullLotInfo fullLotInfo = new FullLotInfo();
+ //      fullLotInfo.setLot(fullLotInfoDTO.getLot());
+ //      fullLotInfo.setCurrentPrice(fullLotInfoDTO.getCurrentPrice());
+ //      fullLotInfo.setBidder(fullLotInfoDTO.getBidder());
+ //      return fullLotInfo;
+ //  }
 
     public static BidderDTO toBidderDTO(Bidder bidder) {
         BidderDTO bidderDTO = new BidderDTO();

@@ -1,6 +1,7 @@
 package ru.skypro.coursework.easyauction.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "lot")
+@AllArgsConstructor
 public class Lot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +26,10 @@ public class Lot {
     private int startPrice;
     @Column(name = "bid_price")
     private int bidPrice;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "bidder_id")
+    @OneToMany(mappedBy = "lot",
+            fetch = FetchType.LAZY)
+//    @JoinColumn(name = "bid_id")
+    private List<Bid> bidList;
 
     //   public Lot(String title, String description, int startPrice, int bidPrice) {
     //       this.title = title;
