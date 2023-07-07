@@ -25,7 +25,8 @@ public class LotServiceImpl implements LotService {
 
     @Override
     public BidderDTO getFirstBidderName(int id) {
-        List<Bidder> bidderList = bidRepository.findAll(S);
+        Bidder bidder = bidRepository.findFirstBidder(id).orElseThrow(LotNotFoundException::new);
+        return MapperClass.toBidderDTO(bidder);
     }
 
     @Override
@@ -81,7 +82,7 @@ public class LotServiceImpl implements LotService {
 
     public TestDTO getLot(int id) {
 
-            return lotRepository.getTest(id);
+        return lotRepository.getTest(id);
 
     }
 

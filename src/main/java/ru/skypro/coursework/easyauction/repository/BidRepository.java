@@ -10,12 +10,14 @@ import ru.skypro.coursework.easyauction.model.Bid;
 import ru.skypro.coursework.easyauction.progections.Bidder;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BidRepository extends JpaRepository<Bid, Integer> {
 
     @Query("SELECT new ru.skypro.coursework.easyauction.progections.Bidder" +
-            "(b.bidderName, b.bidderDateTime) FROM Bid b WHERE b.lot.id = :id ORDER BY b.bidderDateTime")
-   List<Bidder> Bidder findFirstBidder(@Param("id") int id);
+            "(b.bidderName, b.bidderDateTime) FROM Bid b WHERE b.lot.id = :id" +
+            " AND b.bidderDateTime = (SELECT MIN (b.bidderDateTime) from Bid b)")
+    Optional<Bidder> findFirstBidder(@Param("id") int id);
 
 }
