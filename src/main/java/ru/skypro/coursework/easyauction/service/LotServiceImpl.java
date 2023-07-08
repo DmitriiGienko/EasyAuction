@@ -31,12 +31,19 @@ public class LotServiceImpl implements LotService {
 
     @Override
     public BidderDTO getBidderWithMaxBid(int id) {
-        return null;
+        Bidder bidder = bidRepository.findMaxBidder(id).orElseThrow(LotNotFoundException::new);
+        return MapperClass.toBidderDTO(bidder);
     }
 
     @Override
-    public FullLotInfoDTO getFullLotInfoByID(int id) {
-        return null;
+    public FullLotInfo getFullLotInfoByID(int id) {
+        Lot lot = lotRepository.getLotById(id);
+        Bidder bidder = bidRepository.findLastBidder(id).orElseThrow(LotNotFoundException::new);
+
+        FullLotInfo fullLotInfo = new FullLotInfo(lot,
+                ServiceUtil.currentPrice(lot.getStartPrice(), lot.getBidPrice(), 2),
+                bidder);
+        return fullLotInfo;
     }
 
     @Override

@@ -9,6 +9,7 @@ import ru.skypro.coursework.easyauction.dto.TestDTO;
 import ru.skypro.coursework.easyauction.model.Bid;
 import ru.skypro.coursework.easyauction.model.Lot;
 import ru.skypro.coursework.easyauction.model.Status;
+import ru.skypro.coursework.easyauction.progections.FullLotInfo;
 import ru.skypro.coursework.easyauction.service.LotServiceImpl;
 
 import java.io.IOException;
@@ -32,7 +33,7 @@ public class LotController {
     }
 
     @GetMapping("/{id}") // Возвращает полную информацию о лоте с последним ставившим и текущей ценой
-    public FullLotInfoDTO getFullLotInfoByID(@PathVariable int id) {
+    public FullLotInfo getFullLotInfoByID(@PathVariable int id) {
         return lotService.getFullLotInfoByID(id);
     }
 

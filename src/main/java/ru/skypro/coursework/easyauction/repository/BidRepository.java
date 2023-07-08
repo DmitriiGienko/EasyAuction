@@ -22,7 +22,20 @@ public interface BidRepository extends JpaRepository<Bid, Integer> {
 
     @Query("SELECT new ru.skypro.coursework.easyauction.progections.Bidder" +
             "(b.bidderName, b.bidderDateTime) FROM Bid b WHERE b.lot.id = :id" +
-            " AND b.bidderDateTime = (SELECT MAX () from Bid b)")
-    Optional<Bidder> findMaxBidder(@Param("id") int id);
+            " AND b.bidderDateTime = (SELECT MAX (b.bidderDateTime) from Bid b)")
+    Optional<Bidder> findLastBidder(@Param("id") int id);
+
+
+  @Query("SELECT new ru.skypro.coursework.easyauction.progections.Bidder" +
+          "(b.bidderName,MAX(b.bidderDateTime)) FROM Bid b WHERE b.lot.id = :id " +
+          "GROUP BY b.bidderName ORDER BY COUNT(b.lot.id) DESC LIMIT 1")
+  Optional<Bidder> findMaxBidder(@Param("id") int id);
+
+    //  Bidder getBidByBidIdAndCo
+ //  @Query(value = "SELECT bidder_name, MAX(bidder_date_time) FROM bid\n" +
+ //          "WHERE lot_id = :id GROUP BY bidder_name ORDER BY count(*) DESC LIMIT 1",
+ //          nativeQuery = true)
+ //  Optional<Bidder> findMaxBidder(@Param("id") int id);
+
 
 }

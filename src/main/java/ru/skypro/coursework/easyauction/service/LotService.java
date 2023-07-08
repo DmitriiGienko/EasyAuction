@@ -13,7 +13,7 @@ public interface LotService {
 
     BidderDTO getBidderWithMaxBid(int id);
 
-    FullLotInfoDTO getFullLotInfoByID(int id);
+    FullLotInfo getFullLotInfoByID(int id);
 
     void getStartBidding(int id);
 

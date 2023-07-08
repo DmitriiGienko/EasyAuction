@@ -15,11 +15,11 @@ public class FullLotInfo {
     private int currentPrice;
     private Bidder bidder;
 
-    //   @Override
-    //   public String toString() {
-    //       return "Полная информация по лоту: " +
-    //               "lot=" + lot +
-    //               ", текущая цена: " + currentPrice +
-    //               ", bidder=" + bidder;
-    //   }
+       @Override
+       public String toString() {
+           return "Полная информация по лоту: " +
+                   "lot=" + lot +
+                   ", текущая цена: " + currentPrice +
+                   ", bidder=" + bidder;
+       }
 }
