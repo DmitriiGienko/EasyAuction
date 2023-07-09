@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.skypro.coursework.easyauction.dto.*;
+import ru.skypro.coursework.easyauction.exceptions.LotCreateException;
 import ru.skypro.coursework.easyauction.model.Status;
 import ru.skypro.coursework.easyauction.service.LotServiceImpl;
 
@@ -75,6 +76,9 @@ public class LotController {
                             @RequestParam("description") String description,
                             @RequestParam("startPrice") int startPrice,
                             @RequestParam("bidPrice") int bidPrise) {
+        if (title.isBlank() || description.isBlank() || startPrice <= 0 || bidPrise <= 0) {
+            throw new LotCreateException();
+        }
         return lotService.createLot(new LotDTO(
                 Status.CREATED.toString(),
                 title,
@@ -92,7 +96,8 @@ public class LotController {
                     Лимит на количество лотов на странице - 10 штук.""")
     public List<LotDTO> getAllLotsByFilter // Получить все лоты, основываясь на фильтре статуса и номере страницы
 // уточни и почитай про это
-    (@RequestParam(required = false, defaultValue = "0") int page) {
+    (@RequestParam(value = "status", defaultValue = "CREATED") Status status,
+     @RequestParam(required = false, defaultValue = "0") int page) {
         return lotService.getAllLotsByFilter(page);
     }
 
