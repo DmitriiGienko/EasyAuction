@@ -69,7 +69,6 @@ public class LotController {
                     Если лот уже находится в состоянии остановлен, то ничего не делает и возвращает 200""")
     public void getStopBidding(@PathVariable int id) {
         lotService.getStopBidding(id);
-
     }
 
     @PostMapping("/lot")
