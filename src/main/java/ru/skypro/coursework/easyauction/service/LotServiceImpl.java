@@ -10,6 +10,7 @@ import ru.skypro.coursework.easyauction.model.Lot;
 import ru.skypro.coursework.easyauction.model.Status;
 import ru.skypro.coursework.easyauction.progections.Bidder;
 import ru.skypro.coursework.easyauction.progections.FullLotInfo;
+import ru.skypro.coursework.easyauction.progections.LotInfo;
 import ru.skypro.coursework.easyauction.repository.BidRepository;
 import ru.skypro.coursework.easyauction.repository.LotRepository;
 
@@ -37,13 +38,7 @@ public class LotServiceImpl implements LotService {
 
     @Override
     public FullLotInfo getFullLotInfoByID(int id) {
-        Lot lot = lotRepository.getLotById(id);
-        Bidder bidder = bidRepository.findLastBidder(id).orElseThrow(LotNotFoundException::new);
-
-        FullLotInfo fullLotInfo = new FullLotInfo(lot,
-                ServiceUtil.currentPrice(lot.getStartPrice(), lot.getBidPrice(), 2),
-                bidder);
-        return fullLotInfo;
+        return lotRepository.getFullInfo(id);
     }
 
     @Override
@@ -87,9 +82,9 @@ public class LotServiceImpl implements LotService {
     public void createLotsFile() {
     }
 
-    public TestDTO getLot(int id) {
+    public List<FullLotInfoDTO>  getTitle(int id) {
 
-        return lotRepository.getTest(id);
+        return lotRepository.getTitle(id);
 
     }
 

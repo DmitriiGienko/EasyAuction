@@ -10,6 +10,7 @@ import ru.skypro.coursework.easyauction.model.Bid;
 import ru.skypro.coursework.easyauction.model.Lot;
 import ru.skypro.coursework.easyauction.model.Status;
 import ru.skypro.coursework.easyauction.progections.FullLotInfo;
+import ru.skypro.coursework.easyauction.progections.LotInfo;
 import ru.skypro.coursework.easyauction.service.LotServiceImpl;
 
 import java.io.IOException;
@@ -85,7 +86,7 @@ public class LotController {
     }
 
     @GetMapping("/testLot")
-    public TestDTO getLot(@RequestParam int id) {
-        return lotService.getLot(id);
+    public List<FullLotInfoDTO>  getLot(@RequestParam int id) {
+        return lotService.getTitle(id);
     }
 }

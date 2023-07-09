@@ -15,4 +15,6 @@ public class Bidder {
         this.biddersName = biddersName;
         this.localDateTimeOfBid = localDateTimeOfBid;
     }
+
+
 }

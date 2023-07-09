@@ -46,6 +46,15 @@ public class Lot {
         this.bidPrice = bidPrice;
     }
 
+    public Lot(int id, String status, String title, String description, int startPrice, int bidPrice) {
+        this.id = id;
+        this.status = status;
+        this.title = title;
+        this.description = description;
+        this.startPrice = startPrice;
+        this.bidPrice = bidPrice;
+    }
+
     public Lot(String status) {
         this.status = status;
     }
