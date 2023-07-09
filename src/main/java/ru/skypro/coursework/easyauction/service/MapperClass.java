@@ -2,12 +2,10 @@ package ru.skypro.coursework.easyauction.service;
 
 import ru.skypro.coursework.easyauction.dto.BidDTO;
 import ru.skypro.coursework.easyauction.dto.BidderDTO;
-import ru.skypro.coursework.easyauction.dto.FullLotInfoDTO;
 import ru.skypro.coursework.easyauction.dto.LotDTO;
 import ru.skypro.coursework.easyauction.model.Bid;
 import ru.skypro.coursework.easyauction.model.Lot;
 import ru.skypro.coursework.easyauction.progections.Bidder;
-import ru.skypro.coursework.easyauction.progections.FullLotInfo;
 
 public class MapperClass {
 
@@ -45,21 +43,6 @@ public class MapperClass {
                 MapperClass.fromLotDTO(bidDTO.getLotDTO()));
     }
 
- //  public static FullLotInfoDTO toFullLotInfoDTO(FullLotInfo fullLotInfo) {
- //      FullLotInfoDTO fullLotInfoDTO = new FullLotInfoDTO();
- //      fullLotInfoDTO.setLot(fullLotInfo.getLot());
- //      fullLotInfoDTO.setCurrentPrice(fullLotInfo.getCurrentPrice());
- //      fullLotInfoDTO.setBidder(fullLotInfo.getBidder());
- //      return fullLotInfoDTO;
- //  }
-
- //  public static FullLotInfo fromFullLotInfoDTO(FullLotInfoDTO fullLotInfoDTO) {
- //      FullLotInfo fullLotInfo = new FullLotInfo();
- //      fullLotInfo.setLot(fullLotInfoDTO.getLot());
- //      fullLotInfo.setCurrentPrice(fullLotInfoDTO.getCurrentPrice());
- //      fullLotInfo.setBidder(fullLotInfoDTO.getBidder());
- //      return fullLotInfo;
- //  }
 
     public static BidderDTO toBidderDTO(Bidder bidder) {
         BidderDTO bidderDTO = new BidderDTO();

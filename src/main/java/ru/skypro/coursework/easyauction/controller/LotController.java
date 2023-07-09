@@ -2,17 +2,10 @@ package ru.skypro.coursework.easyauction.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.skypro.coursework.easyauction.dto.BidderDTO;
-import ru.skypro.coursework.easyauction.dto.FullLotInfoDTO;
-import ru.skypro.coursework.easyauction.dto.LotDTO;
-import ru.skypro.coursework.easyauction.dto.TestDTO;
-import ru.skypro.coursework.easyauction.model.Bid;
-import ru.skypro.coursework.easyauction.model.Lot;
+import ru.skypro.coursework.easyauction.dto.*;
 import ru.skypro.coursework.easyauction.model.Status;
-import ru.skypro.coursework.easyauction.progections.FullLotInfo;
 import ru.skypro.coursework.easyauction.service.LotServiceImpl;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -33,7 +26,7 @@ public class LotController {
     }
 
     @GetMapping("/{id}") // Возвращает полную информацию о лоте с последним ставившим и текущей ценой
-    public FullLotInfo getFullLotInfoByID(@PathVariable int id) {
+    public FullLot getFullLotInfoByID(@PathVariable int id) {
         return lotService.getFullLotInfoByID(id);
     }
 
@@ -84,8 +77,4 @@ public class LotController {
         //  }
     }
 
-    @GetMapping("/testLot")
-    public TestDTO getLot(@RequestParam int id) {
-        return lotService.getLot(id);
-    }
 }

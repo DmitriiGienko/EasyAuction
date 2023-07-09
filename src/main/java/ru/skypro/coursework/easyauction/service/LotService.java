@@ -1,9 +1,8 @@
 package ru.skypro.coursework.easyauction.service;
 
 import ru.skypro.coursework.easyauction.dto.BidderDTO;
-import ru.skypro.coursework.easyauction.dto.FullLotInfoDTO;
+import ru.skypro.coursework.easyauction.dto.FullLot;
 import ru.skypro.coursework.easyauction.dto.LotDTO;
-import ru.skypro.coursework.easyauction.progections.FullLotInfo;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ public interface LotService {
 
     BidderDTO getBidderWithMaxBid(int id);
 
-    FullLotInfo getFullLotInfoByID(int id);
+    FullLot getFullLotInfoByID(int id);
 
     void getStartBidding(int id);
 
