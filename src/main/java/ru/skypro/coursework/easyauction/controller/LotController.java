@@ -1,6 +1,8 @@
 package ru.skypro.coursework.easyauction.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.skypro.coursework.easyauction.dto.*;
@@ -20,6 +22,9 @@ public class LotController {
     @GetMapping("/{id}/first")
     @Operation(summary = "Получить информацию о первом ставившем на лот",
             description = "Возвращает первого ставившего на этот лот")
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200", description = "Имя первого ставившего и дата первой ставки"),
+//            @ApiResponse(responseCode = "404", description = "Лот не найден")})
     public BidderDTO getFirstBidderName(@PathVariable int id) {
         return lotService.getFirstBidderName(id);
     }
