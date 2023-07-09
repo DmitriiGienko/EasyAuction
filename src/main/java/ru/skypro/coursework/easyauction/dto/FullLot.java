@@ -7,7 +7,7 @@ public interface FullLot {
      String getStatus();
      String getTitle();
      String getDescription();
-     int geStartPrice();
+     int getStartPrice();
      int getBidPrice();
      int getCurrentPrice();
      String getLastBidderName();
