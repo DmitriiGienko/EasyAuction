@@ -58,5 +58,4 @@ public class MapperClass {
         return bidder;
     }
 
-
 }
