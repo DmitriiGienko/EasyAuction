@@ -51,7 +51,6 @@ public class LotServiceImpl implements LotService {
 
         Lot lot = lotRepository.findById(id).orElseThrow(LotNotFoundException::new);
         if (lot.getStatus().equals(Status.STARTED.toString())) {
-            // BidDTO bidDTO = new BidDTO(bidderName, LocalDateTime.now(), MapperClass.toLotDTO(lot));
             bidRepository.save(new Bid(bidderName, LocalDateTime.now(), lot));
             return bidderName;
         } else throw new LotErrorStatusException();
