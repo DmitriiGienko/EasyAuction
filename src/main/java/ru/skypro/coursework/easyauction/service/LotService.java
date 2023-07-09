@@ -3,6 +3,7 @@ package ru.skypro.coursework.easyauction.service;
 import ru.skypro.coursework.easyauction.dto.BidderDTO;
 import ru.skypro.coursework.easyauction.dto.FullLot;
 import ru.skypro.coursework.easyauction.dto.LotDTO;
+import ru.skypro.coursework.easyauction.model.Status;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public interface LotService {
 
     LotDTO createLot(LotDTO lotDTO);
 
-    List<LotDTO> getAllLotsByFilter(int page);
+    List<LotDTO> getAllLotsByFilter(Status status, int page);
 
     void createLotsFile();
 

@@ -43,7 +43,7 @@ public class LotController {
         return lotService.getFullLotInfoByID(id);
     }
 
-    @PutMapping("/{id}/start") // Начать торги по лоту
+    @PutMapping("/{id}/start")
     @Operation(summary = "Начать торги по лоту",
             description = """
                        Переводит лот в состояние начато, которое позволяет делать ставки на лот.
@@ -52,7 +52,7 @@ public class LotController {
         lotService.getStartBidding(id);
     }
 
-    @PutMapping("/{id}/bid") // Сделать ставку по лоту
+    @PutMapping("/{id}/bid")
     @Operation(summary = "Создает новую ставку по лоту.",
             description = """
                     Создает новую ставку по лоту.
@@ -62,7 +62,7 @@ public class LotController {
         return lotService.createBid(id, bidderName);
     }
 
-    @PutMapping("/{id}/stop") // Остановить торги по лоту
+    @PutMapping("/{id}/stop")
     @Operation(summary = "Остановить торги по лоту",
             description = """
                     Переводит лот в состояние остановлен, которое запрещает делать ставки на лот.
@@ -72,7 +72,7 @@ public class LotController {
 
     }
 
-    @PostMapping("/lot") // создание лота
+    @PostMapping("/lot")
     @Operation(summary = "Создание  лота",
             description = """
                     Метод создания нового лота,
@@ -99,11 +99,10 @@ public class LotController {
                     Если страница не указана, то возвращается первая страница.
                     Номера страниц начинаются с 0.
                     Лимит на количество лотов на странице - 10 штук.""")
-    public List<LotDTO> getAllLotsByFilter // Получить все лоты, основываясь на фильтре статуса и номере страницы
-// уточни и почитай про это
+    public List<LotDTO> getAllLotsByFilter
     (@RequestParam(value = "status", defaultValue = "CREATED") Status status,
      @RequestParam(required = false, defaultValue = "0") int page) {
-        return lotService.getAllLotsByFilter(page);
+        return lotService.getAllLotsByFilter(status, page);
     }
 
     @PostMapping("export")
