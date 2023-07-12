@@ -28,7 +28,6 @@ public class Lot {
     private int bidPrice;
     @OneToMany(mappedBy = "lot",
             fetch = FetchType.LAZY)
-//    @JoinColumn(name = "bid_id")
     private List<Bid> bidList;
 
     public Lot(String status, String title, String description, int startPrice, int bidPrice) {

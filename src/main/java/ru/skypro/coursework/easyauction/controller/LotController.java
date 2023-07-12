@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.skypro.coursework.easyauction.dto.*;
 import ru.skypro.coursework.easyauction.exceptions.LotCreateException;
+import ru.skypro.coursework.easyauction.interfaces.FullLot;
 import ru.skypro.coursework.easyauction.model.Status;
 import ru.skypro.coursework.easyauction.service.LotServiceImpl;
 

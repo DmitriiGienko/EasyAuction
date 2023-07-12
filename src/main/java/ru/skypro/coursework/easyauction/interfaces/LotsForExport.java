@@ -1,4 +1,4 @@
-package ru.skypro.coursework.easyauction.dto;
+package ru.skypro.coursework.easyauction.interfaces;
 
 import lombok.Getter;
 

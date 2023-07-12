@@ -39,18 +39,6 @@ public class MapperClass {
         return lot;
     }
 
-    public static BidDTO toBidDTO(Bid bid) {
-        return new BidDTO(bid.getBidderName(),
-                bid.getBidderDateTime(),
-                toLotDTO(new Lot()));
-    }
-
-    public static Bid fromBidDTO(BidDTO bidDTO) {
-        return new Bid(bidDTO.getBidderName(),
-                bidDTO.getBidderDateTime(),
-                MapperClass.fromLotDTO(bidDTO.getLotDTO()));
-    }
-
 
     public static BidderDTO toBidderDTO(Bidder bidder) {
         BidderDTO bidderDTO = new BidderDTO();

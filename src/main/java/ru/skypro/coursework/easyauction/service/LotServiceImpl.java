@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import ru.skypro.coursework.easyauction.dto.*;
 import ru.skypro.coursework.easyauction.exceptions.LotErrorStatusException;
 import ru.skypro.coursework.easyauction.exceptions.LotNotFoundException;
+import ru.skypro.coursework.easyauction.interfaces.FullLot;
 import ru.skypro.coursework.easyauction.model.Bid;
 import ru.skypro.coursework.easyauction.model.Lot;
 import ru.skypro.coursework.easyauction.model.Status;
@@ -25,12 +26,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 @Service

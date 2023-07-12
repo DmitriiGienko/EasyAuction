@@ -1,7 +1,7 @@
 package ru.skypro.coursework.easyauction.service;
 
 import ru.skypro.coursework.easyauction.dto.BidderDTO;
-import ru.skypro.coursework.easyauction.dto.FullLot;
+import ru.skypro.coursework.easyauction.interfaces.FullLot;
 import ru.skypro.coursework.easyauction.dto.LotDTO;
 import ru.skypro.coursework.easyauction.model.Status;
 
