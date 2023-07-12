@@ -31,13 +31,6 @@ public class Lot {
 //    @JoinColumn(name = "bid_id")
     private List<Bid> bidList;
 
-    //   public Lot(String title, String description, int startPrice, int bidPrice) {
-    //       this.title = title;
-    //       this.description = description;
-    //       this.startPrice = startPrice;
-    //       this.bidPrice = bidPrice;
-    //   }
-
     public Lot(String status, String title, String description, int startPrice, int bidPrice) {
         this.status = status;
         this.title = title;

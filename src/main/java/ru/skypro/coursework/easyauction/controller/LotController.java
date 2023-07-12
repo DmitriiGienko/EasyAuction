@@ -1,15 +1,17 @@
 package ru.skypro.coursework.easyauction.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.skypro.coursework.easyauction.dto.*;
 import ru.skypro.coursework.easyauction.exceptions.LotCreateException;
 import ru.skypro.coursework.easyauction.model.Status;
 import ru.skypro.coursework.easyauction.service.LotServiceImpl;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -22,9 +24,6 @@ public class LotController {
     @GetMapping("/{id}/first")
     @Operation(summary = "Получить информацию о первом ставившем на лот",
             description = "Возвращает первого ставившего на этот лот")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200", description = "Имя первого ставившего и дата первой ставки"),
-//            @ApiResponse(responseCode = "404", description = "Лот не найден")})
     public BidderDTO getFirstBidderName(@PathVariable int id) {
         return lotService.getFirstBidderName(id);
     }
@@ -99,23 +98,29 @@ public class LotController {
                     Номера страниц начинаются с 0.
                     Лимит на количество лотов на странице - 10 штук.""")
     public List<LotDTO> getAllLotsByFilter
-    (@RequestParam(value = "status", defaultValue = "CREATED") Status status,
-     @RequestParam(required = false, defaultValue = "0") int page) {
+            (@RequestParam(value = "status", defaultValue = "CREATED") Status status,
+             @RequestParam(required = false, defaultValue = "0") int page) {
         return lotService.getAllLotsByFilter(status, page);
     }
 
-    @PostMapping("export")
+    @PostMapping(value = "/export", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     @Operation(summary = "Экспортировать все лоты в файл CSV",
             description = """
                     Экспортировать все лоты в формате id, title, status, lastBidder, currentPrice
                     в одном файле CSV""")
-    public void createLotsFile() {
-        lotService.createLotsFile();
-        //  try {
-        //      return reportService.addReport();
-        //  } catch (IOException e) {
-        //      throw new RuntimeException(e);
-        //  }
+    public ResponseEntity<byte[]> createLotsFile() {
+
+        byte[] bytes = new byte[0];
+        try {
+            bytes = lotService.createLotsFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e.getCause());
+        }
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + "LotsInfo.csv" + "\"")
+                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .body(bytes);
     }
 
 }

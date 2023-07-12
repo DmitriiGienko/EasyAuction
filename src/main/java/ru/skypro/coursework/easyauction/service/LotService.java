@@ -5,6 +5,7 @@ import ru.skypro.coursework.easyauction.dto.FullLot;
 import ru.skypro.coursework.easyauction.dto.LotDTO;
 import ru.skypro.coursework.easyauction.model.Status;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface LotService {
@@ -25,7 +26,7 @@ public interface LotService {
 
     List<LotDTO> getAllLotsByFilter(Status status, int page);
 
-    void createLotsFile();
+    byte[] createLotsFile() throws IOException;
 
 
 }

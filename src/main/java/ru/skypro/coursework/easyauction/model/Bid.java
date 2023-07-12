@@ -42,9 +42,7 @@ public class Bid {
 
     @Override
     public String toString() {
-        return "Ставка: " +
-                "имя покупателя: " + bidderName +
-                ", дата и время ставки: " + bidderDateTime;
+        return bidderName;
     }
 
     public int getBidId() {

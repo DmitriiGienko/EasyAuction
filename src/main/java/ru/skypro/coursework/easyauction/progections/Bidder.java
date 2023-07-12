@@ -15,4 +15,9 @@ public class Bidder {
         this.biddersName = biddersName;
         this.localDateTimeOfBid = localDateTimeOfBid;
     }
+
+    @Override
+    public String toString() {
+        return biddersName;
+    }
 }

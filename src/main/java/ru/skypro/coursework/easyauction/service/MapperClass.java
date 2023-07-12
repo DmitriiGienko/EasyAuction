@@ -1,13 +1,21 @@
 package ru.skypro.coursework.easyauction.service;
 
-import ru.skypro.coursework.easyauction.dto.BidDTO;
-import ru.skypro.coursework.easyauction.dto.BidderDTO;
-import ru.skypro.coursework.easyauction.dto.LotDTO;
+import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+import ru.skypro.coursework.easyauction.dto.*;
 import ru.skypro.coursework.easyauction.model.Bid;
 import ru.skypro.coursework.easyauction.model.Lot;
 import ru.skypro.coursework.easyauction.progections.Bidder;
+import ru.skypro.coursework.easyauction.repository.BidRepository;
 
+import java.util.Objects;
+
+@Component
+@AllArgsConstructor
 public class MapperClass {
+
+    private final BidRepository bidRepository;
 
     public static LotDTO toLotDTO(Lot lot) {
         LotDTO lotDTO = new LotDTO();
@@ -56,6 +64,24 @@ public class MapperClass {
         bidder.setBiddersName(bidderDTO.getBiddersName());
         bidder.setLocalDateTimeOfBid(bidderDTO.getLocalDateTimeOfBid());
         return bidder;
+    }
+
+    public LotsForExportDTO toLotsForExportDTO(Lot lot) {
+        LotsForExportDTO lotsForExportDTO = new LotsForExportDTO();
+        lotsForExportDTO.setId(lot.getId());
+        lotsForExportDTO.setTitle(lot.getTitle());
+        lotsForExportDTO.setStatus(lot.getStatus());
+        lotsForExportDTO.setCurrentPrice(lot.getBidList().size() * lot.getBidPrice() + lot.getStartPrice());
+        if (getNameLastBidder(lot) == null) {
+            lotsForExportDTO.setBidder("Нет данных");
+        } else {
+            lotsForExportDTO.setBidder(getNameLastBidder(lot).getBiddersName());
+        }
+        return lotsForExportDTO;
+    }
+
+    public Bidder getNameLastBidder(Lot lot) {
+        return bidRepository.findLastBidder(lot.getId()).orElse(null);
     }
 
 }

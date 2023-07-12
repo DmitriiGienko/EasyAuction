@@ -1,6 +1,8 @@
 package ru.skypro.coursework.easyauction.service;
 
 import lombok.AllArgsConstructor;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,9 +18,20 @@ import ru.skypro.coursework.easyauction.repository.BidRepository;
 import ru.skypro.coursework.easyauction.repository.LotRepository;
 import ru.skypro.coursework.easyauction.repository.PagingLotRepository;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 
 @Service
 @AllArgsConstructor
@@ -27,6 +40,7 @@ public class LotServiceImpl implements LotService {
     private final LotRepository lotRepository;
     private final BidRepository bidRepository;
     private final PagingLotRepository pagingLotRepository;
+    private final MapperClass mapperClass;
 
     @Override
     public BidderDTO getFirstBidderName(int id) {
@@ -88,8 +102,34 @@ public class LotServiceImpl implements LotService {
     }
 
     @Override
-    public void createLotsFile() {
+    public byte[] createLotsFile() throws IOException {
+
+        StringWriter sw = new StringWriter();
+
+        List<LotsForExportDTO> lotsForExportDTOS = lotRepository.findAll()
+                .stream().map(mapperClass::toLotsForExportDTO)
+                .toList();
+
+        try (CSVPrinter csvPrinter = new CSVPrinter(sw, CSVFormat.DEFAULT)) {
+            csvPrinter.printRecord("id", "status", "title", "currentPrice", "bidder");
+            for (LotsForExportDTO lotsForExportDTO : lotsForExportDTOS) {
+                csvPrinter.printRecord(lotsForExportDTO.getId(),
+                        lotsForExportDTO.getStatus(),
+                        lotsForExportDTO.getTitle(),
+                        lotsForExportDTO.getCurrentPrice(),
+                        lotsForExportDTO.getBidder());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String fileName = "LotsInfo.csv";
+        Path path = Paths.get(fileName);
+        Files.write(path, sw.toString().getBytes(StandardCharsets.UTF_8));
+
+        return sw.toString().getBytes(StandardCharsets.UTF_8);
     }
 
 
 }
+

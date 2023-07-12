@@ -22,7 +22,7 @@ public interface BidRepository extends JpaRepository<Bid, Integer> {
 
     @Query("SELECT new ru.skypro.coursework.easyauction.progections.Bidder" +
             "(b.bidderName, b.bidderDateTime) FROM Bid b WHERE b.lot.id = :id" +
-            " AND b.bidderDateTime = (SELECT MAX (b.bidderDateTime) from Bid b)")
+            " AND b.bidderDateTime = (SELECT MAX (b.bidderDateTime) from Bid b WHERE b.lot.id = :id)")
     Optional<Bidder> findLastBidder(@Param("id") int id);
 
 

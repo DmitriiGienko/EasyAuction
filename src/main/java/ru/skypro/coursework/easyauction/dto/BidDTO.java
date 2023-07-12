@@ -13,7 +13,4 @@ public class BidDTO {
     private LocalDateTime bidderDateTime;
     private LotDTO lotDTO;
 
-
-
-
 }
