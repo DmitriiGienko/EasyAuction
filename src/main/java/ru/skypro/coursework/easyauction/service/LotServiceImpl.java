@@ -3,6 +3,8 @@ package ru.skypro.coursework.easyauction.service;
 import lombok.AllArgsConstructor;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -38,27 +40,36 @@ public class LotServiceImpl implements LotService {
     private final BidRepository bidRepository;
     private final PagingLotRepository pagingLotRepository;
     private final MapperClass mapperClass;
+    private static final Logger logger = LoggerFactory.getLogger(LotServiceImpl.class);
+
 
     @Override
     public BidderDTO getFirstBidderName(int id) {
+        logger.info("Вызван метод получения первого покупателя");
         Bidder bidder = bidRepository.findFirstBidder(id).orElseThrow(LotNotFoundException::new);
+        logger.info("получен покупатель {} ", bidder);
+
         return MapperClass.toBidderDTO(bidder);
     }
 
     @Override
     public BidderDTO getBidderWithMaxBid(int id) {
+        logger.info("Вызван метод получения покупателя c максимальной ставкой");
         Bidder bidder = bidRepository.findMaxBidder(id).orElseThrow(LotNotFoundException::new);
+        logger.info("получен покупатель {} ", bidder);
         return MapperClass.toBidderDTO(bidder);
     }
 
     @Override
     public FullLot getFullLotInfoByID(int id) {
+        logger.info("Вызван метод получения полной информации по лоту");
         return lotRepository.getFullInfo(id).orElseThrow(LotNotFoundException::new);
     }
 
     @Override
     public void getStartBidding(int id) {
         Lot lot = lotRepository.findById(id).orElseThrow(LotNotFoundException::new);
+        logger.info("Начаты торги по лоту {}", lot.getTitle());
         lot.setStatus(Status.STARTED.toString());
         lotRepository.save(lot);
     }
@@ -69,6 +80,7 @@ public class LotServiceImpl implements LotService {
         Lot lot = lotRepository.findById(id).orElseThrow(LotNotFoundException::new);
         if (lot.getStatus().equals(Status.STARTED.toString())) {
             bidRepository.save(new Bid(bidderName, LocalDateTime.now(), lot));
+            logger.info("Получена новая ставка по лоту {} от {}", lot.getTitle(), bidderName);
             return bidderName;
         } else throw new LotErrorStatusException();
     }
@@ -77,6 +89,7 @@ public class LotServiceImpl implements LotService {
     public void getStopBidding(int id) {
         Lot lot = lotRepository.findById(id).orElseThrow(LotNotFoundException::new);
         lot.setStatus(Status.STOPPED.toString());
+        logger.info("Tорги по лоту {} остановлены", lot.getTitle());
         lotRepository.save(lot);
     }
 
@@ -84,6 +97,7 @@ public class LotServiceImpl implements LotService {
     public LotDTO createLot(LotDTO lotDTO) {
         Lot lot = MapperClass.fromLotDTO(lotDTO);
         lotRepository.save(lot);
+        logger.info("Создан лот {}", lot.getTitle());
         return MapperClass.toLotDTO(lotRepository.getLotByTitle(lotDTO.getTitle()));
     }
 
@@ -92,6 +106,7 @@ public class LotServiceImpl implements LotService {
 
         Pageable lotOfPage = PageRequest.of(page, 10);
         Page<Lot> lotPage = pagingLotRepository.findAllByStatus(status.toString(), lotOfPage);
+        logger.info("Вызван метод получения лотов по фильтру статуса");
         return lotPage.stream()
                 .toList()
                 .stream().map(MapperClass::toLotDTO)
@@ -106,6 +121,8 @@ public class LotServiceImpl implements LotService {
         List<LotsForExportDTO> lotsForExportDTOS = lotRepository.findAll()
                 .stream().map(mapperClass::toLotsForExportDTO)
                 .toList();
+
+        logger.info("Экспортированы все лоты в файл CSV");
 
         try (CSVPrinter csvPrinter = new CSVPrinter(sw, CSVFormat.DEFAULT)) {
             csvPrinter.printRecord("id", "status", "title", "currentPrice", "bidder");
