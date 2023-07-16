@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: developer
+      changes:
+        - tagDatabase:
+            tag: 3.0
+        - addColumn:
+            tableName: lot
+            columns:
+              - column:
+                  name: bidder_id
+                  type: integer
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseTableName: lot
+                  baseColumnNames: bidder_id
+                  referencedTableName: bid
+                  referencedColumnNames: bidder_id
