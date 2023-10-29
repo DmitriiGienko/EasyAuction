@@ -1,9 +1,0 @@
-id,status,title,currentPrice,bidder
-1,STARTED,Самолет,1000,Dima
-4,CREATED,Виски,30,Нет данных
-5,CREATED,Шлюпка,150,Нет данных
-6,STOPPED,Спутник,350,Nata
-7,STARTED,Макака,70,Dima
-8,STARTED,Стиральная машины,100,Нет данных
-2,STOPPED,авто,100,Medina
-9,STOPPED,Кот,70,Dima
